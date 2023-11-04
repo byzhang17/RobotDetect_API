@@ -62,7 +62,7 @@ public class Robot_API {
 	// 		@Override
 	// 		public void run() {
 	// 			// 函数要执行的代码
-	// 			StartDetectService();
+	//			StartDetectService();
 	// 		}
 	// 	};
 
@@ -336,16 +336,16 @@ public class Robot_API {
         // executor.submit(taskn);
 
 
-		// JSONObject res = (JSONObject)postDetectlight("127.0.0.1", "D:/Source/image/2023_10_29_03_53_49.jpeg","D:\\Source\\192_168_33_158\\result");
-		// System.out.println(res);
+		JSONObject res = (JSONObject)postDetectlight("127.0.0.1", "D:/Source/image/2023_10_29_03_53_49.jpeg","D:\\Source\\192_168_33_158\\result");
+		System.out.println(res);
 
-		String folderPath = "D:\\Source\\image";
-        File folder = new File(folderPath);
-        if (folder.isDirectory()) {
-            listFilesForFolder(folder);
-        } else {
-            System.out.println("指定路径不是一个有效的文件夹!");
-        }
+		// String folderPath = "D:\\Source\\image";
+        // File folder = new File(folderPath);
+        // if (folder.isDirectory()) {
+        //     listFilesForFolder(folder);
+        // } else {
+        //     System.out.println("指定路径不是一个有效的文件夹!");
+        // }
 
 		//executor.shutdown();
 	}
@@ -387,9 +387,24 @@ public class Robot_API {
         }
     }
 
-	//发送检测移动指令(ok)
+	//发送检测指令(ok)
 	public static JSONObject postDetectlight(String ip,String image_path,String save_path){
-		String url = "http://" + ip + ":3333/predictlight";
+
+		Ini ini = new Ini();
+		try {
+			// ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			// InputStream configStream = classLoader.getResourceAsStream("route_settings.ini"); 
+			// ini.load(configStream);
+			File inif = new File("robotapi_2/src/main/java/com/ccdc/robot/domain/route_settings.ini");
+			ini.load(inif);
+
+		} catch (Exception e) {
+			System.out.println("配置文件无法访问");
+			e.printStackTrace();
+		}
+		String port = ini.get("option", "port");
+
+		String url = "http://" + ip + ":"+ port + "/predictlight";
 		JSONObject jsonObject2 = new JSONObject();
 		jsonObject2.put("path", image_path);
 		jsonObject2.put("result", save_path);
