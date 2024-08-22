@@ -19,14 +19,6 @@ public class TaskResult {
     private int heat_download_id;
     private byte[] detectResultRGB;
     private Boolean isDataCall;
-    private Boolean CircleCounts;
-    
-    public Boolean getCircleCounts() {
-        return CircleCounts;
-    }
-    public void setCircleCounts(Boolean circleCounts) {
-        CircleCounts = circleCounts;
-    }
     public Boolean getIsDataCall() {
         return isDataCall;
     }
