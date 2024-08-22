@@ -2,6 +2,7 @@ package com.ccdc.robot.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public class TaskResult {
     private Long taskId;
@@ -17,6 +18,35 @@ public class TaskResult {
     private int rgb_download_id;
     private int heat_download_id;
     private byte[] detectResultRGB;
+    private Boolean isDataCall;
+    private Boolean CircleCounts;
+    
+    public Boolean getCircleCounts() {
+        return CircleCounts;
+    }
+    public void setCircleCounts(Boolean circleCounts) {
+        CircleCounts = circleCounts;
+    }
+    public Boolean getIsDataCall() {
+        return isDataCall;
+    }
+    public void setIsDataCall(Boolean isDataCall) {
+        this.isDataCall = isDataCall;
+    }
+    public Map<String, Object> getDetectResultHeat() {
+        return detectResultHeat;
+    }
+    public void setDetectResultHeat(Map<String, Object> detectResultHeat) {
+        this.detectResultHeat = detectResultHeat;
+    }
+    private Map<String, Object> detectResultHeat;
+    private List<Integer> ParticleCounter_result;
+    public List<Integer> getParticleCounter_result() {
+        return ParticleCounter_result;
+    }
+    public void setParticleCounter_result(List<Integer> particleCounter_result) {
+        ParticleCounter_result = particleCounter_result;
+    }
     public byte[] getDetectResultRGB() {
         return detectResultRGB;
     }

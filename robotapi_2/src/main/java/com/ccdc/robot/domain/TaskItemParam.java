@@ -8,8 +8,19 @@ public class TaskItemParam {
     private Float tilt;
     // 光学变焦倍数
     private Float zoom;
+    //升降高度
+    private Float lifter;
     // 停留时间 单位秒
     private Integer residenceTime;
+    
+    public Float getLifter() {
+        return lifter;
+    }
+
+    public void setLifter(Float lifter) {
+        this.lifter = lifter;
+    }
+
     // 是否拍照 true:拍照  false:不拍照
     private Boolean shotState;
     // 摄像时长 单位秒

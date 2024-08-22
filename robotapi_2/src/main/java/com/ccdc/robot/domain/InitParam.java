@@ -4,6 +4,7 @@ public class InitParam {
     private Float pan;
     private Float tilt;
     private Float zoom;
+    private Float fliter;
 
     public Float getPan() {
         return pan;
@@ -27,5 +28,13 @@ public class InitParam {
 
     public void setZoom(Float zoom) {
         this.zoom = zoom;
+    }
+
+    public Float getFliter() {
+        return fliter;
+    }
+
+    public void setFliter(Float fliter) {
+        this.fliter = fliter;
     }
 } 

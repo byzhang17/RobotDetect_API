@@ -34,6 +34,7 @@ import org.bytedeco.javacpp.opencv_calib3d.LMSolver.Callback;
 
 
 import java.io.*;
+import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
@@ -43,7 +44,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -72,9 +75,7 @@ public class Robot_API {
     //     executor.submit(taskn);
 	// }
 
-
-
-
+	
 
 	/**
 	 * @param args
@@ -92,18 +93,20 @@ public class Robot_API {
 
 		TaskItemParam temp = new TaskItemParam();
 		temp.setItemId(40l);
-		temp.setPan(130f);
-		temp.setTilt(30f);
-		temp.setZoom(2f);
+		temp.setPan(90f);
+		temp.setTilt(0f);
+		temp.setZoom(1f);
+		temp.setLifter(1.6f);
 		temp.setRecordingTime(30);
 		temp.setResidenceTime(35);
 		temp.setShotState(true);
 
 		TaskItemParam temp5 = new TaskItemParam();
 		temp5.setItemId(40l);
-		temp5.setPan(30f);
-		temp5.setTilt(30f);
+		temp5.setPan(-90f);
+		temp5.setTilt(0f);
 		temp5.setZoom(15f);
+		temp5.setLifter(1.6f);
 		temp5.setRecordingTime(30);
 		temp5.setResidenceTime(35);
 		temp5.setShotState(true);
@@ -113,301 +116,364 @@ public class Robot_API {
 		List<TaskItemParam> temp3 = new ArrayList<>();
 		temp2.add(temp);
 		temp3.add(temp5);
-		try {
-			 BeanUtils.copyProperties(param,obj.get("initParam"));
-			    //test = JSONUtil.toList(JSONUtil.parseArray("[{/\"itemId/\":40,/\"pan/\":30,/\"tilt/\":30,/\"zoom/\":25,/\"residenceTime/\":30,/\"shotState/\":true,/\"recordingTime/\":30}]"), TaskItemParam.class);
-			    //param2 = BeanUtil.copyToList(obj.getJSONArray("taskParamList"),TaskParam.class);	
-			//  param2.get(0).setItemList(JSONUtil.toList("[{/\"itemId/\":40,/\"pan/\":30,/\"tilt/\":30,/\"zoom/\":25,/\"residenceTime/\":30,/\"shotState/\":true,/\"recordingTime/\":30}]", TaskItemParam.class));	
-		    //  param2.get(1).setItemList(JSONUtil.toList("[{/\"itemId/\":40,/\"pan/\":30,/\"tilt/\":30,/\"zoom/\":25,/\"residenceTime/\":30,/\"shotState/\":true,/\"recordingTime/\":30}]", TaskItemParam.class));	
- 			//  param2.get(2).setItemList(JSONUtil.toList("[{/\"itemId/\":40,/\"pan/\":30,/\"tilt/\":30,/\"zoom/\":25,/\"residenceTime/\":30,/\"shotState/\":true,/\"recordingTime/\":30}]", TaskItemParam.class));	
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
 
-		param.setPan(40f);
+		param.setPan(90f);
+		param.setTilt(0f);
+		param.setFliter(1.1f);
 
 		TaskParam task = new TaskParam();
 		task.setItemList(temp2);
-		task.setLocationId(6);
+		task.setLocationId(1001);
 		task.setPointId(34l);
 		param2.add(task);
 
 		TaskParam task1 = new TaskParam();
 		task1.setItemList(temp3);
-		task1.setLocationId(1);
+		task1.setLocationId(203);
 		task1.setPointId(35l);
-		// SetPanTiltPosture("10.255.22.158",90f,20f,2f);
-
-		// for(int i = 0 ; i < 6; i++)
-		// {
-		// 	float x = i*10 - 20;
-		// 		try{
-		// 					Thread.sleep(3* 1000);
-		// 			}
-		// 			catch(Exception e)
-		// 			{
-		// 				throw new RuntimeException(e);
-		// 			}
-		// 	SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
-		// 	Date date = new Date();
-		// 	String rgbpath = "D:\\Source\\image\\" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpeg";
-		// 	try {
-		// 		File targetDir = new File(rgbpath);
-		// 		if(!targetDir.exists()){
-		// 			targetDir.createNewFile();
-		// 		}
-		// 	} catch (Exception e) {
-		// 		// TODO: handle exception
-		// 		e.printStackTrace();
-		// 	}
-		
-			
-		// 	getRGB("10.255.22.158",rgbpath);
-		// }
-		// while(true)
-		// {
-		// 	String sre = getRobotStatus("10.255.22.158").toString();
-		// 					try{
-		// 					Thread.sleep(1000);
-		// 			}
-		// 			catch(Exception e)
-		// 			{
-		// 				throw new RuntimeException(e);
-		// 			}
-				
-		// 	System.out.println(sre);
-		// }
-
-
-		//SetPanTiltPosture("10.255.22.158",-90f,10f,1f);
+		param2.add(task1);
+		//SetPanTiltPosture("10.255.22.158",90f,20f,2f);
 
 		
 
-		// SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
-		// Date date = new Date();
-		// String rgbpath = "D:\\Source\\image\\" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpeg";
-		// try {
-		// 	File targetDir = new File(rgbpath);
-		// 	if(!targetDir.exists()){
-        //     	targetDir.createNewFile();
-       	// 	}
-		// } catch (Exception e) {
-		// 	// TODO: handle exception
-		// 	e.printStackTrace();
-		// }
-		
-		
-		// getRGB("10.255.22.158",rgbpath);
-							//获取波形数据
-		// List<Double[]> wave = WavDraw.ShowWave("D:/Source/192_168_33_158/audio" );
-
-		// System.out.println(wave.size() + "12");
-		// 			//获取频域数据
-		// List<Double[]> fre = FFTCalc0ToEnd.ShowFre("D:/Source/192_168_33_158/audio");
-
-		// System.out.println(fre.size() + "dd");
-
-		//param2.add(task1);
-
-		// param2.get(0).setLocationId(2);
-		// param2.get(0).setPointId(34l);
-		// param2.get(0).setItemList(temp2);
-		// param2.get(1).setItemList(temp2);
-		// param2.get(1).setLocationId(1);
-		// param2.get(1).setPointId(35l);
-
-		//byte[] res = getRGBPicture("10.255.22.158");
-
+		SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
+		Date date = new Date();
+		String rgbpath = "D:\\Source\\image\\" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpeg";
 		
 
+		List<Integer> open_doors = Arrays.asList(1513, -1);
 
-		// param2.get(2).setItemList(temp2);
-		// param2.get(2).setLocationId(6);
-		// param2.get(2).setPointId(36l);
-		//StartTask("10.255.22.158",1l,obj.getLong("taskId"),param,param2);		//String result = getRobotStatus("192.168.43.158").toString();
-       	//postMove("10.255.22.158", -1);
-		//System.out.println(result);
-		//Analysis_V("D:\\Source\\image\\2023_10_24_05_53_32.jpeg");
-		//String res = clearError("10.255.22.158").toString();
-		//System.out.println(res);
-		//postTakeOver("10.255.22.158");
+		List<Integer> open_doors1 = Arrays.asList(200, 400, 700, 216, 416, 716, 1000, 1016, 1200, 1216, 1500, 1516);
+		JSONObject result;
+		//start_opendoor("127.0.0.1", "3333", "10.255.3.212");
 
-		//deleteFilesInFolder("D:/Source/image");
+		//postMove(rgbpath, open_doors1.get(0), open_doors1);
 
-		// postMove("10.255.22.92", -1);
-		
-		// try{
-		// 				Thread.sleep(1500);
-		// 			}
-		// 			catch(Exception e)
-		// 			{
-		// 				throw new RuntimeException(e);
-		// 			}
-		// //等待移动完成
+		// for (int i = 0; i < open_doors.size(); i++) {
+		// 	postMove("10.255.3.212", open_doors.get(i), open_doors1);
+		// 	try{
+		// 						Thread.sleep(5000);
+		// 						}
+		// 						catch(Exception e)
+		// 						{
+		// 							throw new RuntimeException(e);
+		// 						}
 		// 	while(true){
-		// 		JSONObject result = (JSONObject)getRobotStatus("10.255.22.92");
-		// 		JSONObject data = (JSONObject)result.get("data");
-		// 		String state = (String)data.get("state");
-		// 		if((int)result.get("code") != 0){
-		// 			int code = (int)result.get("code");
-		// 			String msg = (String)result.get("msg");
-		// 		}
-		// 		if((state.equals("StandingBy"))|| (state.equals("Charging")))
-		// 		{
-		// 			break;
-		// 		}
-		// 		else
-		// 		{
-		// 			try{
-		// 				Thread.sleep(1500);
-		// 			}
-		// 			catch(Exception e)
-		// 			{
-		// 				throw new RuntimeException(e);
-		// 			}
-		// 		}
+		// 					result = (JSONObject)getRobotStatus("10.255.3.212");
+		// 					JSONObject data = (JSONObject)result.get("data");
+		// 					String state = (String)data.get("state");
+
+		// 					if((state.equals("StandingBy"))|| (state.equals("Charging")))
+		// 					{
+		// 						break;
+		// 					}
+		// 					else
+		// 					{
+		// 						try{
+		// 							Thread.sleep(1500);
+		// 						}
+		// 						catch(Exception e)
+		// 						{
+		// 							throw new RuntimeException(e);
+		// 						}
+		// 					}
 		// 	}
 
-		// SetPanTiltPosture("10.255.22.92",-75f,23f,3f);
-
-		// SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
-		// Date date = new Date();
-		// String rgbpath = "D:\\Source\\image\\" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpeg";
-		// try {
-		// 	File targetDir = new File(rgbpath);
-		// 	if(!targetDir.exists()){
-        //     	targetDir.createNewFile();
-       	// 	}
-		// } catch (Exception e) {
-		// 	// TODO: handle exception
-		// 	e.printStackTrace();
 		// }
-		// getRGB("10.255.22.92",rgbpath);
 
+		//postMove("10.255.3.212",-1 , open_doors1);
 
-		//postStopTakeOver("10.255.22.158",true);
+		// set_ctrl_lifter("10.255.3.212",1.6f);
 
-		//JSONObject result = getRobotStatus("10.255.22.158");
+		// try{
+		// 							Thread.sleep(3000);
+		// 						}
+		// 						catch(Exception e)
+		// 						{
+		// 							throw new RuntimeException(e);
+		// 						}
+		//JSONObject res = SetPanTiltPosture("10.255.3.213",90f,0f,1f);
 
-		// JSONObject data = (JSONObject)getRobotStatus("192.168.88.4").get("data");
+		//System.out.println(res);
 
-		// String state = (String)data.get("state");
+		//JSONObject res = getRoutePlan("10.255.3.212",Arrays.asList(201,304),0.4);
+		//getRGB("10.255.3.213",rgbpath);
 
-		// boolean fa = ((state.equals("Charging"))) ;
-		//System.out.println(result);
-		//callpython("D:/Source/192_168_33_158/image/20230924195545.jpg", "D:/Source/192_168_33_158/result", "D:/Source/yolov5-v8.0/runs/train/exp13/weights/best.pt", "D:/Source/yolov5-v8.0/detect_light.py");
-		//callpython("D:/Source/192_168_33_158/image/20230924195545.jpg", "D:/Source/192_168_33_158/result", "D:/Source/yolov5-v8.0/runs/train/exp13/weights/best.pt", "D:/Source/yolov5-v8.0/detect_light.py");
-
-		//callpython("D:\\Source\\image\\" + "2023_10_24_05_53_51.jpeg", "D:/Source/192_168_33_158/result", "D:/Source/yolov5-v8.0/runs/train/exp13/weights/best.pt", "D:/Source/yolov5-v8.0/detect_light.py","");
-		//callpython("D:\\Source\\image\\" + "2023_10_24_05_53_51.jpeg" , "D:/Source/192_168_33_158/result", "D:/Source/yolov5-v8.0/runs/train/exp24/weights/best.pt", "D:/Source/yolov5-v8.0/detect_switch.py","");
-		//callpython("D:/Source/192_168_33_158/result/myexp2/" + "IMG20230905143915.jpg", "D:/Source/192_168_33_158/result", "D:/Source/yolov5-v8.0/runs/train/exp21/weights/best.pt", "D:/Source/yolov5-v8.0/detect_pointer.py","")
-		//callpython("D:\\Source\\image\\2023_10_26_04_49_30.jpeg", "D:/Source/192_168_33_158/result", "D:/Source/yolov5-v8.0/runs/train/exp25/weights/best.pt", "D:/Source/yolov5-v8.0/detect_num_pointer(2).py","D:/Source/yolov5-v8.0/runs/train/exp20/weights/best.pt");
-		// List<Integer> try1 = new ArrayList<>();
-		// try1.add(1105);
-		// try1.add(1106);
-		// try1.add(1109);
-		// try1.add(1111);
-		// getRoutePlan("10.255.22.92", try1, 0.4);
-
-		// List<Double[]> wave = FFTCalc0ToEnd.ShowFre("D:/Source/10_255_22_158" + "/audio");
-
-		// List<Double[]> wave1 = WavDraw.ShowWave("D:/Source/10_255_22_158" + "/audio");
+		//StartTask("10.255.3.212","10.255.3.213",1l,obj.getLong("taskId"),param,param2,1,open_doors1);		//String result = getRobotStatus("192.168.43.158").toString();
+      	//switch_fill_light("10.255.3.213",true);
 		
-		// int i = 0;
-		// JSONObject res = (JSONObject)postDetectlight("127.0.0.1", "D:/Source/image/2023_10_29_03_53_49.jpeg");
-		
-		// System.out.println(res);
+		//postDetectlight("127.0.0.1","D:\\Source\\image\\2023_11_29_09_54_20.jpeg","D:\\Source\\result","3333");
 
-
-		//python D:/Source/yolov5-v8.0/detect.py "D:/Source/yolov5-v8.0/runs/train/exp26/weights/best.pt" "D:/Source/yolov5-v8.0/runs/train/exp28/weights/best.pt" "D:/Source/yolov5-v8.0/runs/train/exp25/weights/best.pt" "D:/Source/yolov5-v8.0/runs/train/exp20/weights/best.pt" "D:/Source/192_168_33_158/result"
-		
-		// Runnable taskn = new Runnable() {
-		// 	@Override
-		// 	public void run() {
-		// 		// 函数要执行的代码
-		// 		StartDetectService();
-		// 	}
-		// };
-
-		// ExecutorService executor = Executors.newSingleThreadExecutor();
-
-        // // 提交任务给线程池执行
-        // executor.submit(taskn);
-
-
-		JSONObject res = (JSONObject)postDetectlight("127.0.0.1", "D:/Source/image/2023_10_29_03_53_49.jpeg","D:\\Source\\192_168_33_158\\result");
-		System.out.println(res);
-
-		// String folderPath = "D:\\Source\\image";
-        // File folder = new File(folderPath);
-        // if (folder.isDirectory()) {
-        //     listFilesForFolder(folder);
-        // } else {
-        //     System.out.println("指定路径不是一个有效的文件夹!");
-        // }
-
-		//executor.shutdown();
-	}
-
-	public static void listFilesForFolder(final File folder) {
-		int i = 0;
-        for (final File fileEntry : folder.listFiles()) {
-            if (fileEntry.isDirectory()) {
-                listFilesForFolder(fileEntry);
-            } else {
-				i++;
-                //System.out.println(fileEntry.getAbsolutePath());
-				JSONObject res = (JSONObject)postDetectlight("127.0.0.1", fileEntry.getAbsolutePath(),"D:\\Source\\192_168_33_158\\result");
-				String paht = (String)res.get("save_path");
-
-				File sourceFile = new File(paht);
-				File destFile = new File("D:/Source/result/" + String.valueOf(i) + ".jpeg");
-
-				// 判断源文件是否存在
-				if (sourceFile.exists()) {
-					// 判断目标文件路径所在的目录是否存在，如果不存在，则创建该目录
-					File destDir = destFile.getParentFile();
-					if(!destDir.exists()){
-						destDir.mkdirs();
-					}
-
-					// 执行文件复制的操作
-					try {
-						Files.copy(sourceFile.toPath(), destFile.toPath());
-						System.out.println("文件复制成功！");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				} else {
-					System.out.println("源文件不存在！");
-				}
-				System.out.println(res);
-			}
-        }
-    }
-
-	//发送检测指令(ok)
-	public static JSONObject postDetectlight(String ip,String image_path,String save_path){
-
-		Ini ini = new Ini();
+		//getAudio("10.255.3.213","D:/",false);
+		//getMaxtemp("10.255.3.212");
+		// byte[] res = getRGBPicture("10.255.3.213",false);
+		// System.out.println(res[500]);
+		JSONObject jsonObject = new JSONObject();
+		List<Float> result_max = new ArrayList<>(); 
+		List<Float> result_min = new ArrayList<>(); 
+		List<Integer> result_x = new ArrayList<>(); 
+		List<Integer> result_y = new ArrayList<>();
+		byte[] buffer = new byte[1024 * 1024];
+		File file = new File("C:\\Users\\张本熠\\Documents\\WeChat Files\\wxid_ldn8y4bhvtag22\\FileStorage\\File\\2023-12\\shot_heatmap");
+		int bytesRead = 0;
 		try {
-			// ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			// InputStream configStream = classLoader.getResourceAsStream("route_settings.ini"); 
-			// ini.load(configStream);
-			File inif = new File("robotapi_2/src/main/java/com/ccdc/robot/domain/route_settings.ini");
-			ini.load(inif);
-
+			FileInputStream fis = new FileInputStream(file);
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+			int len = 0;
+			while ((len = fis.read(buffer)) != -1) {
+				bos.write(buffer, 0, len);
+				bytesRead += len;
+			}
+			fis.close();
+			bos.close();
 		} catch (Exception e) {
-			System.out.println("配置文件无法访问");
+			// TODO: handle exception
+		}
+        
+        short[] shortValue = new short[bytesRead / 2];
+		for (int i = 0; i < shortValue.length; i++) {
+			shortValue[i] = (short) ((buffer[i * 2] & 0xff) | ((buffer[i * 2 + 1] & 0xff)) << 8);
+		}
+		int width = Short.toUnsignedInt(shortValue[0]);
+		int hight = Short.toUnsignedInt(shortValue[1]);
+		float slope = Short.toUnsignedInt(shortValue[2]);
+		float offset = Short.toUnsignedInt(shortValue[3]);
+
+		short[][] pointValue = new short[hight][width];
+		
+		for(int n = 0; n < hight; n++)
+		{
+			for(int m = 0; m < width; m++)
+			{
+				pointValue[n][m] = shortValue[4 + n*width + m];
+			}
+		}
+
+		for (int i = 0; i < hight; i += hight/3) {
+			for (int j = 0; j < width - 1; j += width/3) {
+				int subHeight = hight/3;
+				int subWidth = width/3;
+				short[][] subArr = new short[subHeight][subWidth];
+				for (int k = 0; k < subHeight; k++) {
+					for (int l = 0; l < subWidth; l++) {
+						subArr[k][l] = pointValue[i+k][j+l];
+					}
+				}
+				float maxValue = 0;
+				float minValue = 65535;
+				for (int k = 0; k < subHeight; k++) {
+					for (int l = 0; l < subWidth; l++) {
+						if (subArr[k][l] > maxValue) {
+							maxValue = subArr[k][l];
+						}
+					}
+				}
+				List<Integer> x = new ArrayList<>();
+				List<Integer> y = new ArrayList<>();
+				int sum_x = 0;
+				int sum_y = 0;
+				int closest_max = 0;
+				int closest_min = 0;
+				int min_dis = 0;
+				for (int k = 0; k < subHeight; k++) {
+					for (int l = 0; l < subWidth; l++) {
+						if (subArr[k][l] == maxValue) {
+							x.add(k + i);
+							y.add(j + l);
+						}
+					}
+				}
+				for (int num : x) {
+					sum_x += num;
+				}
+				sum_x = sum_x / x.size();
+
+				for (int num : y) {
+					sum_y += num;
+				}
+				sum_y = sum_y / y.size();
+
+				min_dis = Math.abs(x.get(0) - sum_x) + Math.abs(y.get(0) - sum_y);
+				for(int m = 0; m < x.size(); m++)
+				{
+					if(Math.abs(x.get(m) - sum_x) + Math.abs(y.get(m) - sum_y) < min_dis)
+					{
+						min_dis = Math.abs(x.get(m) - sum_x) + Math.abs(y.get(m) - sum_y);
+						closest_max = m;
+					}
+				}
+
+				result_x.add(x.get(closest_max));
+				result_y.add(y.get(closest_max));
+
+				x.clear();
+				y.clear();
+				sum_x = 0;
+				sum_y = 0;
+				min_dis = 0;
+
+				for (int k = 0; k < subHeight; k++) {
+					for (int l = 0; l < subWidth; l++) {
+						if (subArr[k][l] < minValue) {
+							minValue = subArr[k][l];
+						}
+					}
+				}
+
+				for (int k = 0; k < subHeight; k++) {
+					for (int l = 0; l < subWidth; l++) {
+						if (subArr[k][l] == minValue) {
+							x.add(k + i);
+							y.add(j + l);
+						}
+					}
+				}
+
+				for (int num : x) {
+					sum_x += num;
+				}
+				sum_x = sum_x / x.size();
+
+				for (int num : y) {
+					sum_y += num;
+				}
+				sum_y = sum_y / y.size();
+				min_dis = Math.abs(x.get(0) - sum_x) + Math.abs(y.get(0) - sum_y);
+				for(int m = 0; m < x.size(); m++)
+				{
+					if(Math.abs(x.get(m) - sum_x) + Math.abs(y.get(m) - sum_y) < min_dis)
+					{
+						min_dis = Math.abs(x.get(m) - sum_x) + Math.abs(y.get(m) - sum_y);
+						closest_min = m;
+					}
+				}
+				result_x.add(x.get(closest_min));
+				result_y.add(y.get(closest_min));
+
+
+
+				result_max.add(maxValue / (slope + offset));
+				result_min.add(minValue / (slope + offset));
+
+			}
+		}
+
+		System.out.println(result_max + "\n");
+		System.out.println(result_min + "\n");
+		System.out.println(result_x + "\n");
+		System.out.println(result_y + "\n");
+
+		jsonObject.put("maxtemp", result_max);
+		jsonObject.put("mintemp", result_min);
+		jsonObject.put("result_x", result_x);
+		jsonObject.put("result_y", result_y);
+
+
+		JSONArray result_max_1 = (JSONArray)jsonObject.get("maxtemp"); 
+		JSONArray result_min_1 = (JSONArray)jsonObject.get("mintemp"); 
+		JSONArray result_x_1 = (JSONArray)jsonObject.get("result_x"); 
+		JSONArray result_y_1 = (JSONArray)jsonObject.get("result_y");
+		BufferedImage buffImg = null;
+		try {
+			File input = new File("C:\\Users\\张本熠\\Desktop\\shot_heatmap_4.jpeg");
+		 	buffImg = ImageIO.read(input);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String port = ini.get("option", "port");
+		Graphics g = buffImg.getGraphics();
+
+		g.setColor(Color.GRAY);
+		g.drawLine(213, 0, 213, 480);
+		g.drawLine(426, 0, 426, 480);
+		//g.drawLine(384, 0, 384, 480);
+		//g.drawLine(512, 0, 512, 480);
+		g.drawLine(0, 160, 640, 160);
+		g.drawLine(0, 320, 640, 320);
+
+		g.setColor(Color.RED);
+		g.drawLine(213, 160, 426, 160);
+		g.drawLine(213, 320, 426, 320);
+		g.drawLine(213, 160, 213, 320);
+		g.drawLine(426, 160, 426, 320);
+
+		for(int i = 0;i < result_max.size(); i++)
+		{
+			double temp_max = (double)result_max_1.get(i);
+			double temp_min = (double)result_min_1.get(i);
+
+			int x_max = (int)result_x_1.get(i * 2);
+			int y_max = (int)result_y_1.get(i * 2);
+			int x_min = (int)result_x_1.get(i * 2 + 1);
+			int y_min = (int)result_y_1.get(i * 2 + 1);
+
+			
+			g.setColor(Color.GREEN);
+			g.drawRect(y_max - 10, x_max - 10, 20, 20);
+			g.setFont(new Font("宋体", Font.BOLD, 20));
+			g.drawString(String.valueOf(temp_max), y_max  - 10 , x_max  - 10 + 20);
+
+			g.setColor(Color.YELLOW);
+			g.drawRect(y_min -10, x_min - 10, 20, 20);
+			g.setFont(new Font("宋体", Font.BOLD, 20));
+			g.drawString(String.valueOf(temp_min), y_min -10 , x_min - 10 + 20);
+
+		}
+		g.dispose();
+		try {
+			File output = new File("C:\\Users\\张本熠\\Desktop\\out.jpg");
+			ImageIO.write(buffImg, "jpg", output);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	//发送检测指令(ok)
+	public static JSONObject postDetectlight(String ip,String image_path,String save_path,String port){
 
 		String url = "http://" + ip + ":"+ port + "/predictlight";
 		JSONObject jsonObject2 = new JSONObject();
 		jsonObject2.put("path", image_path);
 		jsonObject2.put("result", save_path);
+		JSONObject result = Robot_API.post(jsonObject2, url);
+		return result;
+	}
+
+	//发送开门指令(ok)
+	public static JSONObject start_opendoor(String ip, String port, String ip2){
+
+		String url = "http://" + ip + ":"+ port + "/open_door_start";
+		JSONObject jsonObject2 = new JSONObject();
+		jsonObject2.put("ip", ip2);
+		JSONObject result = Robot_API.post(jsonObject2, url);
+		return result;
+	}
+
+	//停止开门指令
+	public static JSONObject stop_opendoor(String ip, String port){
+
+		String url = "http://" + ip + ":"+ port + "/open_door_stop";
+		JSONObject jsonObject2 = new JSONObject();
+		JSONObject result = Robot_API.post(jsonObject2, url);
+		return result;
+	}	
+
+	//巡检点合法性检查
+	public static JSONObject check_goals(String ip, List<Integer> goals){
+		 String url = "http://" + ip + ":35181/beepatrol/check_goals";
+		JSONObject jsonObject2 = new JSONObject();
+		jsonObject2.put("goals", goals);
+		JSONObject result = Robot_API.post(jsonObject2, url);
+		return result;
+	}
+
+	//启动颗粒物计数采样
+	public static JSONObject enable_particle_counter(String ip, int id, int delay_time, int sample_time){
+	    String url = "http://" + ip + ":35182/beepatrol/enable_particle_counter";
+		JSONObject jsonObject2 = new JSONObject();
+		jsonObject2.put("id", id);
+		jsonObject2.put("delay_time", delay_time);	
+		jsonObject2.put("sample_time", sample_time);
 		JSONObject result = Robot_API.post(jsonObject2, url);
 		return result;
 	}
@@ -428,7 +494,7 @@ public class Robot_API {
 
 	//获取路径和时间信息(ok)
 	@SuppressWarnings("unchecked")
-    public static JSONObject getRoutePlan(String ip, List<Integer> id, Double speed){
+    public static JSONObject getRoutePlan(String ip, List<Integer> id, Double speed,List<Integer> open_doors){
         String url = "http://" + ip + ":35181/beepatrol/plan";
 		List<Integer> Route = new ArrayList<>();
 		double time = 0;
@@ -438,13 +504,12 @@ public class Robot_API {
 		for(int i = 0; i < id.size() - 1; i++){
     		int  from = id.get(i);
     		int  to = id.get(i + 1);
-			List<Integer> open_doors = new ArrayList<>();
+			//List<Integer> open_doors = Arrays.asList(200, 400, 700, 216, 416, 716, 1000, 1016, 1200, 1216, 1500, 1516);
 			//open_doors.clear();
-			
 			JSONObject jsonObject2 = new JSONObject();
 			jsonObject2.put("from", from);
 			jsonObject2.put("to", to);
-			//jsonObject2.put("open_doors", open_doors);
+			jsonObject2.put("open_doors", open_doors);
 			jsonObject2.put("velocity", speed);
 
 
@@ -489,9 +554,9 @@ public class Robot_API {
     }
 
 	//发送移动指令(ok)
-	public static JSONObject postMove(String ip, int id){
+	public static JSONObject postMove(String ip, int id, List<Integer> open_doors){
 		String url = "http://" + ip + ":35181/beepatrol/move";
-		List<Integer> open_doors = new ArrayList<>();
+		//List<Integer> open_doors = Arrays.asList(200, 400, 700, 216, 416, 716, 1000, 1016, 1200, 1216, 1500, 1516);
 		JSONObject jsonObject2 = new JSONObject();
 		jsonObject2.put("goal", id);
 		jsonObject2.put("open_doors", open_doors);
@@ -549,6 +614,31 @@ public class Robot_API {
 		JSONObject result = Robot_API.post(jsonObject2, url);
 		return result;
 	}	
+
+	//控制升降高度(0.1-2.2)
+	public static JSONObject set_ctrl_lifter(String ip, Float height){
+		String url = "http://" + ip + ":35181/beepatrol/ctrl_lifter";
+		JSONObject jsonObject2 = new JSONObject();
+		jsonObject2.put("height", height);
+		JSONObject result = Robot_API.post(jsonObject2, url);
+		return result;
+	}
+
+	//开关补光灯
+	public static JSONObject switch_fill_light(String ip, Boolean on_off){
+		String url = "http://" + ip + ":35182/beepatrol/switch_fill_light";
+		JSONObject jsonObject2 = new JSONObject();
+		jsonObject2.put("turn_on", on_off);
+		JSONObject result = Robot_API.post(jsonObject2, url);
+		return result;
+	}	
+
+	//返回机器人云台状态
+	public static JSONObject getPan_tilt(String ip){
+        String url = "http://" + ip + ":35182/beepatrol/pan_tilt";
+        JSONObject result = Robot_API.get(url);
+        return result;
+	}
 
 	//获取地图标识
 	public static JSONObject getMapUID(String ip,int id){
@@ -668,6 +758,71 @@ public class Robot_API {
 		InputStream in = null;
 		FileOutputStream fos = null;
 		RequestConfig requestConfig = RequestConfig.custom()
+    			.setSocketTimeout(20000) // 设置 socket 超时时间为 5 秒
+    			.setConnectTimeout(20000) // 设置连接超时时间为 5 秒
+    			.build();
+		get.setConfig(requestConfig);
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		try{
+			
+			// CloseableHttpClient httpClient = HttpClients.custom()
+			//    .setConnectionManager(connectionManager)
+			//    .setConnectionManagerShared(true) 
+			//    .build();
+			fos = new FileOutputStream(path);
+			HttpResponse response = httpClient.execute(get);
+            HttpEntity entity = response.getEntity();		
+			
+			if(entity != null){
+				in = entity.getContent();
+				byte[] buffer = new byte[1024];
+            	int bytesRead;
+      			while ((bytesRead = in.read(buffer)) != -1) {
+        			fos.write(buffer, 0, bytesRead);
+      			}
+			}
+			if(response.getStatusLine().getStatusCode()!=HttpStatus.SC_OK){
+				System.out.println("服务器异常");
+			}
+			
+		} catch (Exception e){
+			System.out.println("请求异常");
+			throw new RuntimeException(e);
+		} finally{
+			//get.abort();
+			if (in != null) {
+			try {
+				in.close();
+			} catch (IOException e) {
+				System.out.println("关闭流异常");
+				throw new RuntimeException(e);
+			}
+			try {
+				httpClient.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if (fos != null) {
+			try {
+			fos.close();
+			} catch (IOException e) {
+				System.out.println("关闭流异常");
+				throw new RuntimeException(e);
+			}
+      	}
+	  }
+		return true;
+	}
+	
+
+	//存储可见光图像(ok)
+	public static boolean GetMap(String ip, String path){
+		String url = "http://" + ip + ":35181/beepatrol/map";
+        HttpGet get = new HttpGet(url);
+		InputStream in = null;
+		FileOutputStream fos = null;
+		RequestConfig requestConfig = RequestConfig.custom()
     			.setSocketTimeout(5000) // 设置 socket 超时时间为 5 秒
     			.setConnectTimeout(5000) // 设置连接超时时间为 5 秒
     			.build();
@@ -724,8 +879,10 @@ public class Robot_API {
 	  }
 		return true;
 	}
+	
+
 	//获取可见光图像数据(ok)
-	public static byte[] getRGBPicture(String ip){
+	public static byte[] getRGBPicture(String ip, Boolean isNew){
 		String url = "http://" + ip + ":35182/beepatrol/shot_rgb";
         HttpGet get = new HttpGet(url);
 		InputStream in = null;
@@ -751,23 +908,27 @@ public class Robot_API {
 
 				BufferedImage buffImg = ImageIO.read(in);
 
-				double temp = getMaxtemp(ip);
-				DecimalFormat decimalFormat = new DecimalFormat("#.00");
-        		String result = decimalFormat.format(temp);
+				if(isNew)
+				{
+					double temp = getMaxtemp(ip);
+					DecimalFormat decimalFormat = new DecimalFormat("#.00");
+					String result = decimalFormat.format(temp);
 
-				//得到画笔对象
-				Graphics g = buffImg.getGraphics();
-				//设置文字颜色。
-				g.setColor(Color.RED);
-				//最后一个参数用来设置字体的大小
-				Font f = new Font("宋体",Font.PLAIN,20);
-				g.setFont(f);
-				//60,160 表示这段文字在图片上的位置(x,y) .第一个是你设置的内容。
-				g.drawString("最高温度：" + result ,buffImg.getWidth() - 200,20);
-				g.dispose();
+					//得到画笔对象
+					Graphics g = buffImg.getGraphics();
+					//设置文字颜色。
+					g.setColor(Color.RED);
+					//最后一个参数用来设置字体的大小
+					Font f = new Font("宋体",Font.PLAIN,20);
+					g.setFont(f);
+					//60,160 表示这段文字在图片上的位置(x,y) .第一个是你设置的内容。
+					g.drawString("最高温度：" + result ,buffImg.getWidth() - 200,20);
+					g.dispose();
 
-        		ImageIO.write(buffImg, "jpeg", os);
 
+				}
+
+				ImageIO.write(buffImg, "jpeg", os);
 				// byte[] buffer = new byte[1024];
             	// int bytesRead;
       			// while ((bytesRead = in.read(buffer)) != -1) {
@@ -850,8 +1011,17 @@ public class Robot_API {
         return targetPath;
     }
 
+
 	//获取红外热像仪图像数据(ok)
-	public static byte[] getheat(String ip){
+	public static Map<String, Object> getheat(String ip){
+
+		Map<String, Object> map = new HashMap<>();
+		JSONObject temp = getTenAreaTempInPicture(ip);
+		JSONArray result_max = (JSONArray)temp.get("maxtemp"); 
+		JSONArray result_min = (JSONArray)temp.get("mintemp"); 
+		JSONArray result_x = (JSONArray)temp.get("result_x"); 
+		JSONArray result_y = (JSONArray)temp.get("result_y");
+		
 		String url = "http://" + ip + ":35182/beepatrol/shot_heatmap";
 		ByteArrayOutputStream os = null;
 		JSONObject jsonObject2 = new JSONObject();
@@ -861,7 +1031,8 @@ public class Robot_API {
 		
 		try{
 			uri = new URIBuilder(url)
-					.setParameter("id", String.valueOf(1)).build();
+					.setParameter("data", String.valueOf(0)).build();
+
 		}
 		catch(URISyntaxException e)
 		{
@@ -887,14 +1058,63 @@ public class Robot_API {
 			
 			if(entity != null){
 				in = entity.getContent();
-				byte[] buffer = new byte[1024];
-            	int bytesRead;
-      			while ((bytesRead = in.read(buffer)) != -1) {
-        			os.write(buffer, 0, bytesRead);
-      			}
-				
-				return os.toByteArray();
+
+				BufferedImage buffImg = ImageIO.read(in);
+				Graphics g = buffImg.getGraphics();
+
+				g.setColor(Color.GRAY);
+				g.drawLine(213, 0, 213, 480);
+				g.drawLine(426, 0, 426, 480);
+				//g.drawLine(384, 0, 384, 480);
+				//g.drawLine(512, 0, 512, 480);
+				g.drawLine(0, 160, 640, 160);
+				g.drawLine(0, 320, 640, 320);
+
+				g.setColor(Color.RED);
+				g.drawLine(213, 160, 426, 160);
+				g.drawLine(213, 320, 426, 320);
+				g.drawLine(213, 160, 213, 320);
+				g.drawLine(426, 160, 426, 320);
+
+				for(int i = 0;i < result_max.size(); i++)
+				{
+					double temp_max = (double)result_max.get(i);
+					double temp_min = (double)result_min.get(i);
+
+					int x_max = (int)result_x.get(i * 2);
+					int y_max = (int)result_y.get(i * 2);
+					int x_min = (int)result_x.get(i * 2 + 1);
+					int y_min = (int)result_y.get(i * 2 + 1);
+
+					
+					g.setColor(Color.GREEN);
+					g.drawRect(y_max - 10, x_max - 10, 20, 20);
+					g.setFont(new Font("宋体", Font.BOLD, 20));
+					g.drawString(String.valueOf(temp_max), y_max  - 10 , x_max  - 10 + 20);
+
+					g.setColor(Color.YELLOW);
+					g.drawRect(y_min -10, x_min - 10, 20, 20);
+					g.setFont(new Font("宋体", Font.BOLD, 20));
+					g.drawString(String.valueOf(temp_min), y_min -10 , x_min - 10 + 20);
+
+
+				}
+				g.dispose();
+				ImageIO.write(buffImg, "jpeg", os);
+				// byte[] buffer = new byte[1024];
+            	// int bytesRead;
+      			// while ((bytesRead = in.read(buffer)) != -1) {
+        		// 	os.write(buffer, 0, bytesRead);
+      			// }
+				JSONObject jsonObject = new JSONObject();
+				jsonObject.put("maxtemp", result_max);
+				jsonObject.put("mintemp", result_min);
+
+				map.put("ByteArray",os.toByteArray());
+				map.put("temp",jsonObject);
+				return map;
 			}
+
 			if(response.getStatusLine().getStatusCode()!=HttpStatus.SC_OK){
 				System.out.println("服务器异常");
 			}
@@ -925,9 +1145,342 @@ public class Robot_API {
 			}
       	}
 	  }
-	  byte[] buffer = new byte[1024];
-      return  buffer;
+      return  map;
 	}
+
+	
+	//获取十个区域温度
+	public static JSONObject getTenAreaTemp(String ip)
+	{
+		JSONObject jsonObject = new JSONObject();
+
+		List<Float> result_max = new ArrayList<>(); 
+		List<Float> result_min = new ArrayList<>(); 
+
+		String url = "http://" + ip + ":35182/beepatrol/shot_heatmap";
+		JSONObject jsonObject2 = new JSONObject();
+		jsonObject2.put("data", 1);
+		InputStream in = null;
+		URI uri = null;
+		try{
+			uri = new URIBuilder(url)
+					.setParameter("data", String.valueOf(1)).build();
+		}
+		catch(URISyntaxException e)
+		{
+			e.printStackTrace();
+		}
+		HttpGet get = new HttpGet(uri);
+		RequestConfig requestConfig = RequestConfig.custom()
+    			.setSocketTimeout(5000) // 设置 socket 超时时间为 5 秒
+    			.setConnectTimeout(5000) // 设置连接超时时间为 5 秒
+    			.build();
+		get.setConfig(requestConfig);
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		try{
+			
+			// CloseableHttpClient httpClient = HttpClients.custom()
+			//    .setConnectionManager(connectionManager)
+			//    .setConnectionManagerShared(true) 
+			//    .build();
+			String param = URLEncoder.encode(jsonObject2.toString(), "UTF-8");
+			//get.setURI(URI.create(url + "?json=" + param));
+			HttpResponse response = httpClient.execute(get);
+
+			//result = getHttpEntityContent(response);
+			
+			HttpEntity entity = response.getEntity();		
+			
+			if(entity != null){
+				in = entity.getContent();
+				byte[] buffer = new byte[1024 * 1024];
+            	int bytesRead = 0;
+				int count = 0;
+      			while ((count = in.read(buffer,bytesRead,1000)) != -1) {
+					bytesRead += count;
+        			continue;
+					//break;
+      			}
+				short[] shortValue = new short[bytesRead / 2];
+				for (int i = 0; i < shortValue.length; i++) {
+					shortValue[i] = (short) ((buffer[i * 2] & 0xff) | ((buffer[i * 2 + 1] & 0xff)) << 8);
+				}
+				int width = Short.toUnsignedInt(shortValue[0]);
+				int hight = Short.toUnsignedInt(shortValue[1]);
+				float slope = Short.toUnsignedInt(shortValue[2]);
+				float offset = Short.toUnsignedInt(shortValue[3]);
+
+				short[][] pointValue = new short[hight][width];
+				
+				for(int n = 0; n < hight; n++)
+				{
+					for(int m = 0; m < width; m++)
+					{
+						pointValue[n][m] = shortValue[4 + n*width + m];
+					}
+				}
+
+				for (int i = 0; i < hight; i += hight/3) {
+					for (int j = 0; j < width - 1; j += width/3) {
+						int subHeight = hight/3;
+						int subWidth = width/3;
+						short[][] subArr = new short[subHeight][subWidth];
+						for (int k = 0; k < subHeight; k++) {
+							for (int l = 0; l < subWidth; l++) {
+								subArr[k][l] = pointValue[i+k][j+l];
+							}
+						}
+						float maxValue = 0;
+						float minValue = 65535;
+						for (int k = 0; k < subHeight; k++) {
+							for (int l = 0; l < subWidth; l++) {
+								if (subArr[k][l] > maxValue) {
+									maxValue = subArr[k][l];
+								}
+							}
+						}
+
+						for (int k = 0; k < subHeight; k++) {
+							for (int l = 0; l < subWidth; l++) {
+								if (subArr[k][l] < minValue) {
+									minValue = subArr[k][l];
+								}
+							}
+						}
+						result_max.add(maxValue / (slope + offset));
+						result_min.add(minValue / (slope + offset));
+
+					}
+				}
+			}
+			
+			if(response.getStatusLine().getStatusCode()!=HttpStatus.SC_OK){
+				String result = "服务器异常";
+			}
+			
+		} catch (Exception e){
+			System.out.println("请求异常");
+			throw new RuntimeException(e);
+		} finally{
+			try {
+				httpClient.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//get.abort();
+		}
+		jsonObject.put("maxtemp", result_max);
+		jsonObject.put("mintemp", result_min);
+		return  jsonObject;
+	}
+
+	//获取十个区域温度，并返回每个区域中心点坐标
+	public static JSONObject getTenAreaTempInPicture(String ip)
+	{
+		JSONObject jsonObject = new JSONObject();
+
+		List<Float> result_max = new ArrayList<>(); 
+		List<Float> result_min = new ArrayList<>(); 
+		List<Integer> result_x = new ArrayList<>(); 
+		List<Integer> result_y = new ArrayList<>();
+
+		String url = "http://" + ip + ":35182/beepatrol/shot_heatmap";
+		JSONObject jsonObject2 = new JSONObject();
+		jsonObject2.put("data", 1);
+		InputStream in = null;
+		URI uri = null;
+		try{
+			uri = new URIBuilder(url)
+					.setParameter("data", String.valueOf(1)).build();
+		}
+		catch(URISyntaxException e)
+		{
+			e.printStackTrace();
+		}
+		HttpGet get = new HttpGet(uri);
+		RequestConfig requestConfig = RequestConfig.custom()
+    			.setSocketTimeout(5000) // 设置 socket 超时时间为 5 秒
+    			.setConnectTimeout(5000) // 设置连接超时时间为 5 秒
+    			.build();
+		get.setConfig(requestConfig);
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		try{
+			
+			// CloseableHttpClient httpClient = HttpClients.custom()
+			//    .setConnectionManager(connectionManager)
+			//    .setConnectionManagerShared(true) 
+			//    .build();
+			String param = URLEncoder.encode(jsonObject2.toString(), "UTF-8");
+			//get.setURI(URI.create(url + "?json=" + param));
+			HttpResponse response = httpClient.execute(get);
+
+			//result = getHttpEntityContent(response);
+			
+			HttpEntity entity = response.getEntity();		
+			
+			if(entity != null){
+				in = entity.getContent();
+				byte[] buffer = new byte[1024 * 1024];
+            	int bytesRead = 0;
+				int count = 0;
+      			while ((count = in.read(buffer,bytesRead,1000)) != -1) {
+					bytesRead += count;
+        			continue;
+					//break;
+      			}
+				short[] shortValue = new short[bytesRead / 2];
+				for (int i = 0; i < shortValue.length; i++) {
+					shortValue[i] = (short) ((buffer[i * 2] & 0xff) | ((buffer[i * 2 + 1] & 0xff)) << 8);
+				}
+				int width = Short.toUnsignedInt(shortValue[0]);
+				int hight = Short.toUnsignedInt(shortValue[1]);
+				float slope = Short.toUnsignedInt(shortValue[2]);
+				float offset = Short.toUnsignedInt(shortValue[3]);
+
+				short[][] pointValue = new short[hight][width];
+				
+				for(int n = 0; n < hight; n++)
+				{
+					for(int m = 0; m < width; m++)
+					{
+						pointValue[n][m] = shortValue[4 + n*width + m];
+					}
+				}
+
+				for (int i = 0; i < hight; i += hight/3) {
+					for (int j = 0; j < width - 1; j += width/3) {
+						int subHeight = hight/3;
+						int subWidth = width/3;
+						short[][] subArr = new short[subHeight][subWidth];
+						for (int k = 0; k < subHeight; k++) {
+							for (int l = 0; l < subWidth; l++) {
+								subArr[k][l] = pointValue[i+k][j+l];
+							}
+						}
+						float maxValue = 0;
+						float minValue = 65535;
+						for (int k = 0; k < subHeight; k++) {
+							for (int l = 0; l < subWidth; l++) {
+								if (subArr[k][l] > maxValue) {
+									maxValue = subArr[k][l];
+								}
+							}
+						}
+						List<Integer> x = new ArrayList<>();
+						List<Integer> y = new ArrayList<>();
+						int sum_x = 0;
+						int sum_y = 0;
+						int closest_max = 0;
+						int closest_min = 0;
+						int min_dis = 0;
+						for (int k = 0; k < subHeight; k++) {
+							for (int l = 0; l < subWidth; l++) {
+								if (subArr[k][l] == maxValue) {
+									x.add(k + i);
+									y.add(j + l);
+								}
+							}
+						}
+						for (int num : x) {
+							sum_x += num;
+						}
+						sum_x = sum_x / x.size();
+
+						for (int num : y) {
+							sum_y += num;
+						}
+						sum_y = sum_y / y.size();
+
+						min_dis = Math.abs(x.get(0) - sum_x) + Math.abs(y.get(0) - sum_y);
+						for(int m = 0; m < x.size(); m++)
+						{
+							if(Math.abs(x.get(m) - sum_x) + Math.abs(y.get(m) - sum_y) < min_dis)
+							{
+								min_dis = Math.abs(x.get(m) - sum_x) + Math.abs(y.get(m) - sum_y);
+								closest_max = m;
+							}
+						}
+
+						result_x.add(x.get(closest_max));
+						result_y.add(y.get(closest_max));
+
+						x.clear();
+						y.clear();
+						sum_x = 0;
+						sum_y = 0;
+						min_dis = 0;
+
+						for (int k = 0; k < subHeight; k++) {
+							for (int l = 0; l < subWidth; l++) {
+								if (subArr[k][l] < minValue) {
+									minValue = subArr[k][l];
+								}
+							}
+						}
+
+						for (int k = 0; k < subHeight; k++) {
+							for (int l = 0; l < subWidth; l++) {
+								if (subArr[k][l] == minValue) {
+									x.add(k + i);
+									y.add(j + l);
+								}
+							}
+						}
+
+						for (int num : x) {
+							sum_x += num;
+						}
+						sum_x = sum_x / x.size();
+
+						for (int num : y) {
+							sum_y += num;
+						}
+						sum_y = sum_y / y.size();
+						min_dis = Math.abs(x.get(0) - sum_x) + Math.abs(y.get(0) - sum_y);
+						for(int m = 0; m < x.size(); m++)
+						{
+							if(Math.abs(x.get(m) - sum_x) + Math.abs(y.get(m) - sum_y) < min_dis)
+							{
+								min_dis = Math.abs(x.get(m) - sum_x) + Math.abs(y.get(m) - sum_y);
+								closest_min = m;
+							}
+						}
+						result_x.add(x.get(closest_min));
+						result_y.add(y.get(closest_min));
+
+
+
+						result_max.add(maxValue / (slope + offset));
+						result_min.add(minValue / (slope + offset));
+
+					}
+				}
+			}
+			
+			if(response.getStatusLine().getStatusCode()!=HttpStatus.SC_OK){
+				String result = "服务器异常";
+			}
+			
+		} catch (Exception e){
+			System.out.println("请求异常");
+			throw new RuntimeException(e);
+		} finally{
+			try {
+				httpClient.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			//get.abort();
+		}
+		jsonObject.put("maxtemp", result_max);
+		jsonObject.put("mintemp", result_min);
+		jsonObject.put("result_x", result_x);
+		jsonObject.put("result_y", result_y);
+		
+		return  jsonObject;
+	}
+
+
 
 	//获取红外热像仪面阵数据(ok)
 	public static float getMaxtemp(String ip){
@@ -1463,56 +2016,162 @@ public class Robot_API {
       return  buffer;
 	}
 
+	private static class StreamGobbler extends Thread {
+			private InputStream inputStream;
+	
+			public StreamGobbler(InputStream inputStream) {
+				this.inputStream = inputStream;
+			}
+	
+			@Override
+			public void run() {
+				try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+					String line;
+					while ((line = reader.readLine()) != null) {
+						// 处理输出内容，可根据需要进行自定义
+						System.out.println(line);
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+
 	//获取音频流
-	public static void getAudio(String ip,String path)
+	public static void getAudio(String ip,String path, Boolean Flag_new)
 	{	
 
 		ByteArrayInputStream inputStream1 = null;
 		FileOutputStream outStream = null;
-		String url = "rtsp://" + ip + ":8554/audio";
+		String url = "rtsp://" + ip + ":8554/video_stream_unicast";
+
+		String url2 = "rtsp://" + ip + ":8554/audio";
 
 		String outputFilePath = path  + "/out.aac";
 		String outputFilePath2 = path  + "/out.wav";
+		String outputFilePath3 = path  + "/out1.mp4";
 
 		File file = new File(outputFilePath);
 		if(file.exists())
 		{
 			file.delete();
-		}
+		}	
 	
 		File file2 = new File(outputFilePath2);
 		if(file2.exists())
 		{
 			file2.delete();
 		}
-	
-		String[] ffmpegCommand = {
+
+		File file3 = new File(outputFilePath3);
+		if(file3.exists())
+		{
+			file3.delete();
+		}
+
+		if(!Flag_new)
+		{
+			String[] ffmpegCommand = {
 			"ffmpeg",
 			"-i",
 			url,
 			"-t",
 			"3", // 持续时间为3秒钟
-			"-vn",
-			"-acodec",
+			"-vcodec",
 			"copy",
-			outputFilePath
-		};
+			outputFilePath3
+			};
 
-		try {
-			// 执行FFmpeg命令行
-			ProcessBuilder processBuilder = new ProcessBuilder(ffmpegCommand);
-			Process process = processBuilder.start();
+			try {
+				// 执行FFmpeg命令行
+				ProcessBuilder processBuilder = new ProcessBuilder(ffmpegCommand);
+				processBuilder.redirectErrorStream(true); 
+				Process process = processBuilder.start();
 
-			// 等待命令行执行完成
-			int exitCode = process.waitFor();
-			if (exitCode == 0) {
-				System.out.println("音频流存储成功！");
-			} else {
-				System.out.println("音频流存储失败！");
+				// 异步读取子进程的输出流
+				StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream());
+				streamGobbler.start();
+
+
+				
+				// 等待命令行执行完成
+				int exitCode = process.waitFor();
+				streamGobbler.join();
+				
+				if (exitCode == 0) {
+					System.out.println("音频流存储成功！");
+				} else {
+					System.out.println("音频流存储失败！");
+				}
+			}catch (IOException | InterruptedException e) {
+				e.printStackTrace();
 			}
-		} catch (IOException | InterruptedException e) {
-			e.printStackTrace();
+
+			
+			String[] ffmpegCommand3 = {
+				"ffmpeg",
+				"-i",
+				outputFilePath3,
+				"-vn",
+				"-acodec",
+				"copy",
+				outputFilePath
+			};
+
+			try {
+				// 执行FFmpeg命令行
+				ProcessBuilder processBuilder = new ProcessBuilder(ffmpegCommand3);
+				Process process = processBuilder.start();
+
+				// 异步读取子进程的输出流
+				StreamGobbler streamGobbler = new StreamGobbler(process.getInputStream());
+				streamGobbler.start();
+
+				// 等待命令行执行完成
+				int exitCode = process.waitFor();
+				streamGobbler.join();
+
+				if (exitCode == 0) {
+					System.out.println("音频流存储成功！");
+				} else {
+					System.out.println("音频流存储失败！");
+				}
+			} catch (IOException | InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
+		else
+		{
+			String[] ffmpegCommand = {
+				"ffmpeg",
+				"-i",
+				url2,
+				"-t",
+				"3", // 持续时间为3秒钟
+				"-vn",
+				"-acodec",
+				"copy",
+				outputFilePath
+			};
+	
+			try {
+				// 执行FFmpeg命令行
+				ProcessBuilder processBuilder = new ProcessBuilder(ffmpegCommand);
+				Process process = processBuilder.start();
+	
+				// 等待命令行执行完成
+				int exitCode = process.waitFor();
+				if (exitCode == 0) {
+					System.out.println("音频流存储成功！");
+				} else {
+					System.out.println("音频流存储失败！");
+				}
+			} catch (IOException | InterruptedException e) {
+				e.printStackTrace();
+			}	
+		}
+	
 
 		String[] ffmpegCommand2 = {
 			"ffmpeg",
@@ -1648,15 +2307,25 @@ public class Robot_API {
         return bos.toByteArray();
     }
 	//任务执行
-	public static Boolean StartTask(TaskCallback callable,String ip, Long PlanID, Long taskId, InitParam initParam, List<TaskParam> taskParams,int tasktype){
-		
+	public static Boolean StartTask(TaskCallback callable, String ip, String ip2, Long PlanID, Long taskId, InitParam initParam, List<TaskParam> taskParams,int tasktype, List<Integer> open_doors, List<Integer> route){
 		int code = 0;
 		String msg = "";
 		Boolean hava_store = false;
-		TaskResult back_result = new TaskResult();
 		JSONObject result = new JSONObject();
 
+		//颗粒物采样id;
+		int id = 1;
+
+
 		String sourceDir = "";
+
+		Boolean Flag_new = true;
+
+		if(ip.equals(ip2))
+			Flag_new = true;
+		else
+			Flag_new = false;
+
 
 		//读取ini配置文件
 		Ini ini = new Ini();
@@ -1672,6 +2341,8 @@ public class Robot_API {
 			e.printStackTrace();
 		}
 		String system = ini.get("option", "system");
+		String port  = ini.get("option","port");
+		String python_ip = ini.get("option", "ip");
 		if(system.equals("windows"))
 		{
 			sourceDir = ini.get("windows", "basedir");
@@ -1680,6 +2351,15 @@ public class Robot_API {
 		{
 			sourceDir = ini.get("linux", "basedir");
 		}
+		if(!Flag_new)
+		{
+			//开补光灯
+			//switch_fill_light(ip2,true);
+			//开门
+			start_opendoor(python_ip, port, ip);
+		}
+
+
 		
 		String baseDir = sourceDir + ip.replace(".", "_");
 		//读取日常任务配置文件
@@ -1751,14 +2431,28 @@ public class Robot_API {
 		// stop_video_record_heat(ip);
 		//开始录制
 		Date Task_record_start_time = new Date();
-		start_video_record_rgb(ip);
-		start_video_record_heat(ip);
+
+		if(Flag_new)
+		{
+			start_video_record_rgb(ip2);
+			start_video_record_heat(ip2);
+		}
+
 
 		//初始化机器人
-		result = SetPanTiltPosture(ip,initParam.getPan(),initParam.getTilt(),initParam.getZoom());
-		if((int)result.get("code") != 0){
-			code = (int)result.get("code");
-			msg = (String)result.get("msg");
+		try {
+			result = SetPanTiltPosture(ip2,initParam.getPan(),initParam.getTilt(),initParam.getZoom());
+
+			if(initParam.getFliter() != null)
+			{
+				set_ctrl_lifter(ip, initParam.getFliter());
+			}
+			if((int)result.get("code") != 0){
+				code = (int)result.get("code");
+				msg = (String)result.get("msg");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 		//等待初始化完成
@@ -1772,12 +2466,13 @@ public class Robot_API {
 
 		for(int i = 0; i < taskParams.size(); i++)
 		{
+			List<Integer> ParticleCounter_result = new ArrayList<>();
 			TaskParam currenTaskParam = taskParams.get(i);
 
 			//处理巡检点
 
 			//发送移动命令
-			result = postMove(ip, currenTaskParam.getLocationId());
+			result = postMove(ip, currenTaskParam.getLocationId(), open_doors);
 			// if((int)result.get("code") != 0){
 
 			// 	code = (int)result.get("code");
@@ -1814,10 +2509,70 @@ public class Robot_API {
 					}
 				}
 			}
+
+			if(Flag_new)
+			{
+				//先进行颗粒物采集
+				ParticleCounterParam currretParticleCounterParam = currenTaskParam.getParticleCounter_Param();
+
+				for(int p = 0; p < currretParticleCounterParam.getCollCycles(); p++)
+				{
+					//启动颗粒物采样
+					enable_particle_counter(ip2,id,30,currretParticleCounterParam.getCollDuration());
+
+					try{
+						Thread.sleep(currretParticleCounterParam.getCollDuration() * 1000 + 30 * 1000);
+					}
+					catch(Exception e)
+					{
+						throw new RuntimeException(e);
+					}
+					//等待采样完成
+					int count = 0;
+					while(count < 30){
+						result = (JSONObject)getPeripheralStatus(ip2);
+						JSONObject data = (JSONObject)result.get("data");
+						JSONObject ptcl_cnt = (JSONObject)data.get("ptcl_cnt");
+						String sample_status = (String)ptcl_cnt.get("sample_status"); //采样状态
+						int sample_id = (int)ptcl_cnt.get("id"); //采样id
+						int device_status = (int)ptcl_cnt.get("device_status"); //设备状态
+
+						if((sample_status.equals("Success"))  && (sample_id == id))
+						{	
+							ParticleCounter_result.add((int)ptcl_cnt.get(currretParticleCounterParam.getName()));
+							break;
+						}
+						else
+						{
+							System.out.println(sample_status);
+							if(sample_status.equals("Failed"))
+							{
+								break;
+							}
+							if(device_status != 0)
+							{
+								ParticleCounter_result.add(0);
+								break;
+							}
+							try{
+								Thread.sleep(1500);
+							}
+							catch(Exception e)
+							{
+								throw new RuntimeException(e);
+							}
+						}
+						count++;
+					}
+					id++;
+				}
+			}
+			System.out.println(ParticleCounter_result);
 			//执行任务节点
 			List<TaskItemParam> taskItemParams = currenTaskParam.getItemList();
 			for(int j = 0; j < taskItemParams.size(); j++)
 			{	
+				TaskResult back_result = new TaskResult();
 				try{
 					//开始执行任务时间
 					Date Task_StartTime = new Date(System.currentTimeMillis());
@@ -1827,16 +2582,25 @@ public class Robot_API {
 					long startTime = System.currentTimeMillis();
 
 					//设置云盘
-					SetPanTiltPosture(ip,currenTaskItemParam.getPan(),currenTaskItemParam.getTilt(),currenTaskItemParam.getZoom());
+					try {
+						SetPanTiltPosture(ip2,currenTaskItemParam.getPan(),currenTaskItemParam.getTilt(),currenTaskItemParam.getZoom());
+						if(currenTaskItemParam.getLifter() != null)
+						{
+							set_ctrl_lifter(ip, currenTaskItemParam.getLifter());
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
 
 					//等待云盘设置成功
-					// try{
-					// 	Thread.sleep(2000);
-					// }
-					// catch(Exception e)
-					// {
-					// 	throw new RuntimeException(e);
-					// }
+					try{
+						Thread.sleep(5000);
+					}
+					catch(Exception e)
+					{
+						throw new RuntimeException(e);
+					}
 					//开始录像时间
 					Date Record_StartTime = new Date(System.currentTimeMillis());
 
@@ -1847,24 +2611,46 @@ public class Robot_API {
 					deleteFilesInFolder(baseDir + "/image");
 					createFolder(baseDir+ "/image");
 					SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd:hh:mm:ss");
-					File targetDir = new File(baseDir+ "/image/" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpeg");
+					File targetDir = new File(baseDir+ "/image/" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpg");
 					if(!targetDir.exists()){
             			targetDir.createNewFile();
         			}
-					String rgbpath = baseDir + "/image/" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpeg";
-					getRGB(ip,rgbpath);			
+					String rgbpath = baseDir + "/image/" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpg";
+					getRGB(ip2,rgbpath);			
 
 					deleteFilesInFolder(baseDir+ "/result");
 					createFolder(baseDir+ "/result");
 
+					//获取红外图像
+					Map<String, Object> heat = new HashMap<>();
+					if(Flag_new)
+					{
+						heat = getheat(ip2);
+						back_result.setDetectResultHeat(heat);
+						back_result.setIsDataCall(true);
+						back_result.setTaskId(taskId);
+						back_result.setPointId(currenTaskParam.getPointId());
+						back_result.setItemId(currenTaskItemParam.getItemId());
+						callable.call(back_result);
+					}
+					else
+					{
+						back_result.setDetectResultHeat(heat);
+						back_result.setIsDataCall(true);
+						back_result.setTaskId(taskId);
+						back_result.setPointId(currenTaskParam.getPointId());
+						back_result.setItemId(currenTaskItemParam.getItemId());
+						callable.call(back_result);
+					}
+	
 					//识别可见光图片
-					JSONObject res = (JSONObject)postDetectlight("127.0.0.1", rgbpath,baseDir+"/result");
+					JSONObject res = (JSONObject)postDetectlight(python_ip, rgbpath, baseDir+"/result", port);
 					System.out.println(res);
 					// callpython(rgbpath, baseDir+"/result", sourceDir +"yolov5-v8.0/runs/train/exp26/weights/best.pt",sourceDir + "yolov5-v8.0/detect_light.py","");
 					// callpython(baseDir+"/result/myexp/" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpeg" , baseDir+"/result", sourceDir+"yolov5-v8.0/runs/train/exp28/weights/best.pt", sourceDir + "yolov5-v8.0/detect_switch.py","");
 					// //callpython(baseDir+"/result/myexp2/" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpeg", baseDir+"/result", sourceDir +"yolov5-v8.0/runs/train/exp21/weights/best.pt", sourceDir + "yolov5-v8.0/detect_pointer.py","");
 					// callpython(baseDir+"/result/myexp2/" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpeg", baseDir+"/result", sourceDir +"yolov5-v8.0/runs/train/exp25/weights/best.pt", sourceDir + "yolov5-v8.0/detect_num_pointer(2).py",sourceDir + "yolov5-v8.0/runs/train/exp20/weights/best.pt");
-
+					
 					//python D:/Source/yolov5-v8.0/detect.py "D:/Source/yolov5-v8.0/runs/train/exp26/weights/best.pt" "D:/Source/yolov5-v8.0/runs/train/exp28/weights/best.pt" "D:/Source/yolov5-v8.0/runs/train/exp25/weights/best.pt" "D:/Source/yolov5-v8.0/runs/train/exp20/weights/best.pt" 
 
 					String resultpath1 = baseDir+"/result/myexp/labels/" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".txt";
@@ -2097,21 +2883,29 @@ public class Robot_API {
 							}
 						}
 					}
+
+					
 					//HSV分析
 					double v = Analysis_V(rgbpath);
-					
-					//红外分析
-					double maxTemp = getMaxtemp(ip);
-
+			
 					createFolder(baseDir+ "/audio");
-					//获取音频 
-					getAudio(ip, baseDir + "/audio");
+					List<Double[]> wave = null;
+					List<Double[]> fre = null;
+					double maxTemp = 0;
+						//获取音频 
+					getAudio(ip2, baseDir + "/audio",Flag_new);
 
 					//获取波形数据
-					List<Double[]> wave = WavDraw.ShowWave(baseDir+ "/audio");
+					wave = WavDraw.ShowWave(baseDir+ "/audio");
 
 					//获取频域数据
-					List<Double[]> fre = FFTCalc0ToEnd.ShowFre(baseDir+ "/audio");
+					fre = FFTCalc0ToEnd.ShowFre(baseDir+ "/audio");
+
+					//红外分析
+					if(Flag_new)
+					{
+						maxTemp = getMaxtemp(ip2);
+					}		
 
 					long endTime = System.currentTimeMillis();
 					// 计算执行时间
@@ -2153,36 +2947,123 @@ public class Robot_API {
 					back_result.setHSV_v(v);
 					back_result.setFre(fre);
 					back_result.setWave(wave);
-					String resultpicture = baseDir+"/result/myexp3/" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpeg";
+					back_result.setParticleCounter_result(ParticleCounter_result);
+					String resultpicture = baseDir+"/result/myexp3/" + dateFormat.format(date).replace(' ', '_').replace(':', '_').replace('-', '_') + ".jpg";
 					back_result.setDetectResultRGB(getImageBytes(resultpicture));
+					back_result.setDetectResultHeat(heat);
 					//更新回调
 					if(i == taskParams.size() -1 && j == taskItemParams.size() - 1){
 						back_result.setIsOver(true);
 						//停止录制
 						Date Task_record_stop_time = new Date();
-						result = (JSONObject)stop_video_record_rgb(ip).get("data");
-						JSONObject result2 = (JSONObject)stop_video_record_heat(ip).get("data");
+						if(Flag_new)
+						{
+							result = (JSONObject)stop_video_record_rgb(ip2).get("data");
+							JSONObject result2 = (JSONObject)stop_video_record_heat(ip2).get("data");
+							
+							//可见光视频集的编号
+							int rgb_record_id = (int)result.get("id");
+
+							int heat_record_id = (int)result2.get("id");
+
+							back_result.setRgb_download_id(rgb_record_id);
+							back_result.setHeat_download_id(heat_record_id);
+						}
 						
-						//可见光视频集的编号
-						int rgb_record_id = (int)result.get("id");
-
-						int heat_record_id = (int)result2.get("id");
-
-						back_result.setRgb_download_id(rgb_record_id);
-						back_result.setHeat_download_id(heat_record_id);
-
-						result = SetPanTiltPosture(ip,initParam.getPan(),initParam.getTilt(),initParam.getZoom());
+						result = SetPanTiltPosture(ip2,initParam.getPan(),initParam.getTilt(),initParam.getZoom());
+						if(initParam.getFliter() != null)
+						{
+							set_ctrl_lifter(ip, initParam.getFliter());
+						}
+						if(!Flag_new)
+						{
+							//关闭补光灯
+							//switch_fill_light(ip2,false);
+						}
 
 						//任务执行完成，返回充电
-						result = postMove(ip, -1);
+						back_result.setIsDataCall(false);
+						callable.call(back_result);
+						//重置参数
+						code = 0;
+						msg = "";
+						
+						for(int s = route.size() - 1; s >= 0; s--)
+						{
+							//发送移动命令
+							result = postMove(ip, route.get(s), open_doors);
+
+							try{
+								Thread.sleep(3000);
+							}
+							catch(Exception e)
+							{
+								throw new RuntimeException(e);
+							}
+							//等待移动完成
+							while(true){
+								result = (JSONObject)getRobotStatus(ip);
+								JSONObject data = (JSONObject)result.get("data");
+								String state = (String)data.get("state");
+								if((int)result.get("code") != 0){
+									code = (int)result.get("code");
+									msg = (String)result.get("msg");
+								}
+								if((state.equals("StandingBy"))|| (state.equals("Charging")))
+								{
+									break;
+								}
+								else
+								{
+									try{
+										Thread.sleep(1500);
+									}
+									catch(Exception e)
+									{
+										throw new RuntimeException(e);
+									}
+								}
+							}
+						}
+
+						result = postMove(ip, -1, open_doors);
+
+						while(true){
+							result = (JSONObject)getRobotStatus(ip);
+							JSONObject data = (JSONObject)result.get("data");
+							String state = (String)data.get("state");
+							if((int)result.get("code") != 0){
+								code = (int)result.get("code");
+								msg = (String)result.get("msg");
+							}
+							if((state.equals("Charging")))
+							{
+								break;
+							}
+							else
+							{
+								try{
+									Thread.sleep(1500);
+								}
+								catch(Exception e)
+								{
+									throw new RuntimeException(e);
+								}
+							}
+						}
+						if(!Flag_new)
+							//关门
+							stop_opendoor(python_ip, port);
 					}
 					else{
 						back_result.setIsOver(false);
+						back_result.setIsDataCall(false);
+						callable.call(back_result);
+						//重置参数
+						code = 0;
+						msg = "";
 					}
-					callable.call(back_result);
-					//重置参数
-					code = 0;
-					msg = "";
+
 				}
 				catch(Exception e){
 					throw new RuntimeException(e);
@@ -2200,8 +3081,6 @@ public class Robot_API {
 		// 	throw new RuntimeException(e);
 		// }
 
-
-
 		return true;
 	}
 
@@ -2211,8 +3090,8 @@ public class Robot_API {
 		JSONObject jsStr = null;
 		HttpPost post = new HttpPost(url);
 		RequestConfig requestConfig = RequestConfig.custom()
-    			.setSocketTimeout(10000) // 设置 socket 超时时间为 5 秒
-    			.setConnectTimeout(10000) // 设置连接超时时间为 5 秒
+    			.setSocketTimeout(60000) // 设置 socket 超时时间为 5 秒
+    			.setConnectTimeout(60000) // 设置连接超时时间为 5 秒
     			.build();
 		post.setConfig(requestConfig);
 		CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -2265,8 +3144,8 @@ public class Robot_API {
 		JSONObject jsStr = null;
 		HttpGet get = new HttpGet(url);
 		RequestConfig requestConfig = RequestConfig.custom()
-    			.setSocketTimeout(5000) // 设置 socket 超时时间为 5 秒
-    			.setConnectTimeout(5000) // 设置连接超时时间为 5 秒
+    			.setSocketTimeout(10000) // 设置 socket 超时时间为 5 秒
+    			.setConnectTimeout(10000) // 设置连接超时时间为 5 秒
     			.build();
 		get.setConfig(requestConfig);
 		CloseableHttpClient httpClient = HttpClients.createDefault();

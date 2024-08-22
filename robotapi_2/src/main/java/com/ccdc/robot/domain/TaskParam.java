@@ -10,8 +10,18 @@ public class TaskParam {
     //需要执行的操作列表
     private List<TaskItemParam> itemList;
 
+    private ParticleCounterParam ParticleCounter_Param;
+
     public Long getPointId() {
         return pointId;
+    }
+
+    public ParticleCounterParam getParticleCounter_Param() {
+        return ParticleCounter_Param;
+    }
+
+    public void setParticleCounter_Param(ParticleCounterParam particleCounter_Param) {
+        ParticleCounter_Param = particleCounter_Param;
     }
 
     public void setPointId(Long pointId) {
